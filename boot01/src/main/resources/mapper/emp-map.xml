@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.app.emp.mapper.EmpMapper">
+	<!-- 전체조회 -->
+	<select id="selectEmpAll" resultType="EmpVO">
+		SELECT empid
+			       , empname
+			       , mgr
+			       , sal
+			       , deptid
+			       , hiredate
+		FROM emp
+		ORDER BY empid
+	</select>
+	<!-- 단건조회 -->
+	<select id="selectEmpInfo" resultType="EmpVO" >
+		SELECT empid
+			       , empname
+			       , mgr
+			       , sal
+			       , deptid
+			       , hiredate
+		FROM emp
+		WHERE empid = #{empid}
+		<!-- ORDER BY ${keyword}  : 달러 잘 안쓰지만 다중조건 검색등에 사용하긴함 -->
+		<!-- ${} : ?? =>달러 mybatis에서 잘 안쓰는게 좋음 => Statement => 데이터 타입을 무시하고 쿼리문 전달함
+			  #{} : ? =>prepareStatement 사용 =>데이터 타입에 따른 작업 -->
+	</select>
+	<!-- 등록 (수정삭제는 result타입 필요없음 어차피 숫자값)-->
+	<insert id="insertEmpInfo" parameterType="EmpVO">
+		INSERT INTO emp
+					    (
+					        empid
+					        ,empname
+					        ,mgr
+					        ,sal
+					        <if test="deptid > 0 ">
+					        ,deptid
+					        </if>
+					        ,hiredate
+					        )
+				VALUES
+				    (
+				     emp_seq.NEXTVAL
+				    	,#{empname}
+				    	,#{mgr}
+				    	,#{sal}
+				    	<if test="deptid > 0 ">
+				    		,#{deptid}
+				    	</if>
+				    	<choose>
+				    		<when test="hiredate != null">
+				    	,#{hiredate}
+				    		</when>
+				    		<otherwise>
+				    			,sysdate
+				    		</otherwise>
+			        </choose>
+				    	
+				    )
+	</insert>
+	<!-- 수정 -->
+	
+	<!-- 삭제 -->
+</mapper>
+
+
