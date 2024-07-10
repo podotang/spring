@@ -28,6 +28,13 @@
 	</select>
 	<!-- 등록 (수정삭제는 result타입 필요없음 어차피 숫자값)-->
 	<insert id="insertEmpInfo" parameterType="EmpVO">
+			<!-- selectKey 다중값사용ㄴ 키 파라미터에 담김-->
+		<selectKey keyProperty="empid"
+						resultType="Integer"
+						order="BEFORE">
+			SELECT NVL(MAX(empid),0)+1
+			FROM emp			
+		</selectKey>
 		INSERT INTO emp
 					    (
 					        empid
@@ -41,7 +48,8 @@
 					        )
 				VALUES
 				    (
-				     emp_seq.NEXTVAL
+				     <!-- emp_seq.NEXTVAL -->
+				     #{empid}
 				    	,#{empname}
 				    	,#{mgr}
 				    	,#{sal}
@@ -59,9 +67,24 @@
 				    	
 				    )
 	</insert>
-	<!-- 수정 -->
+	<!-- 수정 파라미터타입2개이상넘어올때 생략하기-->
+	<update id="updateEmpInfo">
+		UPDATE emp
+		SET empname = #{emp.empname}
+			,  sal = #{emp.sal}
+			, mgr = #{emp.mgr}
+			, deptid = #{emp.deptid}
+		WHERE empid = #{id} 
+	</update>
+	<!-- 삭제 :값1개 들어오면 매개변수이름 아무렇게나 상관ㄴ-->
+	<delete id="deleteEmpInfo" parameterType="int">
+		DELETE FROM emp
+		WHERE empid = #{e}
+	</delete>
 	
-	<!-- 삭제 -->
 </mapper>
+
+
+
 
 

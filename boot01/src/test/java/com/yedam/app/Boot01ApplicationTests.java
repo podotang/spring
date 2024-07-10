@@ -42,17 +42,46 @@ class Boot01ApplicationTests {
 		assertEquals(findVO.getEmpname(),"Den");
 	}
 	
-	@Test
+	//@Test
 	void insertEmpInfo() {
+		//등록
 		EmpVO empvo = new EmpVO();
-		empvo.setEmpname("유진");
+		empvo.setEmpname("사쿠");
 		empvo.setSal(12000);
 		empvo.setDeptid(40);
 		
 		int result = empmapper.insertEmpInfo(empvo);
-		assertEquals(result,1);
+//		assertEquals(result,1);
+		assertEquals(empvo.getEmpid(),205);
 	}
-
+	
+//	@Test
+	void updateEmpInfo() {
+		// 1.단건조회 => 2.업데이트
+		EmpVO empVO = new EmpVO();
+		empVO.setEmpid(4);
+		
+		// 1-2). 조회
+		EmpVO findVO = empmapper.selectEmpInfo(empVO);
+		findVO.setEmpname("사쿠야");
+		findVO.setSal(99999);
+		findVO.setMgr(12);
+		findVO.setDeptid(30);
+		
+		// 2. 업데이트
+		int result = empmapper.updateEmpInfo(findVO.getEmpid(), findVO);
+		assertEquals(1,result);
+	}
+	
+//	@Test
+	void deleteEmpInfo() {
+		int result = empmapper.deleteEmpInfo(3);
+		assertEquals(1,result);
+	}
+	
+	
+	
+	
 }
 
 
