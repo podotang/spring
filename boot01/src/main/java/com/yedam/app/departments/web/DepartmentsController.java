@@ -12,7 +12,7 @@ import com.yedam.app.departments.service.DepartmentsService;
 import com.yedam.app.departments.service.DepartmentsVO;
 
 @Controller
-public class DepController {
+public class DepartmentsController {
 
 	@Autowired
 	DepartmentsService depService;

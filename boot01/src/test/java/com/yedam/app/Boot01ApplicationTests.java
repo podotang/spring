@@ -55,7 +55,7 @@ class Boot01ApplicationTests {
 		assertEquals(empvo.getEmpid(),205);
 	}
 	
-//	@Test
+@Test
 	void updateEmpInfo() {
 		// 1.단건조회 => 2.업데이트
 		EmpVO empVO = new EmpVO();

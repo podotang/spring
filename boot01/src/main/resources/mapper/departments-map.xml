@@ -1,54 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yedam.app.departments.mapper">
+<mapper
+	namespace="com.yedam.app.departments.mapper.DepartmentsMapper">
 
-<select id="selectDepAll" resultType="com.yedam.app.departments.service.DepartmentsVO">
-	SELECT DEPARTMENT_ID
-			,DEPARTMENT_NAME
-			,MANAGER_ID
-			,LOCATION_ID
-	FROM DEPARTMENTS
-	ORDER BY DEPARTMENT_ID
-</select>
+	<select id="selectDepAll"
+		resultType="com.yedam.app.departments.service.DepartmentsVO">
+		SELECT DEPARTMENT_ID
+		,DEPARTMENT_NAME
+		,MANAGER_ID
+		,LOCATION_ID
+		FROM DEPARTMENTS
+		ORDER BY DEPARTMENT_ID
+	</select>
 
-<select id="selectDepInfo" resultType="com.yedam.app.departments.service.DepartmentsVO">
-	SELECT DEPARTMENT_ID
-			,DEPARTMENT_NAME
-			,MANAGER_ID
-			,LOCATION_ID
-	FROM DEPARTMENTS
-	WHERE DEPARTMENT_ID = #{DEPARTMENT_ID} 
-</select>
+	<select id="selectDepInfo"
+		resultType="com.yedam.app.departments.service.DepartmentsVO">
+		SELECT DEPARTMENT_ID
+		,DEPARTMENT_NAME
+		,MANAGER_ID
+		,LOCATION_ID
+		FROM DEPARTMENTS
+		WHERE DEPARTMENT_ID = #{department_id}
+	</select>
 
-<insert id="insertDepInfo" parameterType="com.yedam.app.departments.service.DepartmentsVO">
-	INSERT INTO DEPARTMENTS
-							(
-							DEPARTMENT_ID
-							,DEPARTMENT_NAME
-							,MANAGER_ID
-							,LOCATION_ID
-							)
-	VALUES
-			(
-			#{DEPARTMETN_ID}
-			,#{DEPARTMENT_NAME}
-			,#{MANAGER_ID}
-			,#{LOCATION_ID}
-			)
-</insert>
+	<insert id="insertDepInfo"
+		parameterType="com.yedam.app.departments.service.DepartmentsVO">
+		INSERT INTO DEPARTMENTS
+		(
+		DEPARTMENT_ID
+		,DEPARTMENT_NAME
+		,MANAGER_ID
+		,LOCATION_ID
+		)
+		VALUES
+		(
+		#{department_id}
+		,#{department_name}
+		,#{manager_id}
+		,#{location_id}
+		)
+	</insert>
 
-<update id="updateDepInfo">
-	UPDATE DEPARTMENTS
-	SET DEPARTMENT_ID = #{dep.department_id}
-		,DEPARTMENT_NAME = #{dep.department_name}
-		,MANAGER_ID = #{dep.manager_id}
-	WHERE LOCATION_ID = #{did}
-</update>
+	<update id="updateDepInfo">
+		UPDATE DEPARTMENTS
+		SET DEPARTMENT_NAME = #{dep.department_name}
+				,MANAGER_ID = #{dep.manager_id}
+				,LOCATION_ID = #{dep.location_id}
+		WHERE DEPARTMENT_ID = #{did}
+	</update>
 
-<delete id="deleteDepInfo" parameterType="INT">
-	DELETE FROM DEPARTMENTS
-	WHERE DEPARTMENT_ID = #{nctwish}
-</delete>
+	<delete id="deleteDepInfo" parameterType="INT">
+		DELETE FROM DEPARTMENTS
+		WHERE DEPARTMENT_ID = #{nctwish}
+	</delete>
 
 
 
@@ -57,3 +61,7 @@
 
 
 </mapper>
+
+
+
+

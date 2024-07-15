@@ -28,7 +28,7 @@
 	</select>
 	<!-- 등록 (수정삭제는 result타입 필요없음 어차피 숫자값)-->
 	<insert id="insertEmpInfo" parameterType="EmpVO">
-			<!-- selectKey 다중값사용ㄴ 키 파라미터에 담김-->
+			<!-- selectKey 다중값사용ㄴ 키 파라미터에 담김: sequence보다 활용도가 높아서씀 seq는 숫자만되고 최대값설정시 이후로 스탑됨-->
 		<selectKey keyProperty="empid"
 						resultType="Integer"
 						order="BEFORE">

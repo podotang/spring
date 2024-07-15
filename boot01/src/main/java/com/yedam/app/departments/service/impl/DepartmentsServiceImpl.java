@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.yedam.app.departments.mapper.DepartmentsMapper;
 import com.yedam.app.departments.service.DepartmentsService;
 import com.yedam.app.departments.service.DepartmentsVO;
 
+@Service
 public class DepartmentsServiceImpl implements DepartmentsService{
 
 	@Autowired
