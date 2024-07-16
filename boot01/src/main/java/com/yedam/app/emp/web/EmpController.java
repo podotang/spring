@@ -37,7 +37,6 @@ public class EmpController {
 		// => classpath:/template/emp/list.html
 		// 'classpath:/template/' + 'emp/list'+ '.html'
 		//									return    	suffix
-		
 	}
 	
 	// 단건조회
@@ -46,7 +45,6 @@ public class EmpController {
 		EmpVO findVO = empService.empInfo(empVO);
 		model.addAttribute("empInfo", findVO);
 		return "emp/info";
-	
 	}
 		
 	// 등록 - 등록할 페이지 요청
@@ -74,23 +72,23 @@ public class EmpController {
 	public String empUpdateForm(@RequestParam Integer empid, Model model) {
 		
 		EmpVO empVO = new EmpVO();
-		empVO.setDeptid(empid);
+		empVO.setEmpid(empid);
 		
 		EmpVO findVO = empService.empInfo(empVO);
 		model.addAttribute("empInfo",findVO);
-		
 		return "emp/update";
 	}
 	
 	// 수정 - 처리 (연산, AJAX => QueryString) :ajax는 페이지가 아니라 데이터 이동시키는게 주임
-	@PostMapping("empUpdate")
+	//@PostMapping("empUpdate")
 	@ResponseBody	// => Ajax : 페이지가 돌려주는값이 중요 페이지냐 데이터냐
 	public Map<String, Object> empUpdateAjaxQueryString(EmpVO empVO) {
 		return empService.empUdate(empVO);
 	}
 	// 수정 - 처리 (연산, AJAX => JSON) : @RequestBody
-//	@PostMapping("empUpdate")
-	@ResponseBody	// => Ajax
+	@PostMapping("empUpdate")
+	@ResponseBody	// => Ajax 
+	//@RequestBody > JSON 포멧으로 보냄
 	public Map<String, Object> empUpdateAjaxJson(@RequestBody EmpVO empVO) {
 		return empService.empUdate(empVO);
 	}
