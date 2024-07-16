@@ -10,26 +10,26 @@
 <body>
 	<h3>사원 정보 등록</h3>
 	<form name="insertForm" th:action="@{/empInsert}" method="post">
-	<div class="mb-2">
+	<div>
 		<div>
-			<label class="form-label">이름</label>
-			<input class="form-control" type="text" name="empname" >		
+			<label>이름</label>
+			<input type="text" name="empname" >		
 		</div>
 		<div>
-			<label class="form-label">상사번호</label>
-			<input class="form-control" type="number" name="mgr">		
+			<label>상사번호</label>
+			<input type="number" name="mgr">		
 		</div>
 		<div>
-			<label class="form-label">급여</label>
-			<input class="form-control" type="number" name="sal">		
+			<label>급여</label>
+			<input type="number" name="sal">		
 		</div>
 		<div>
-			<label class="form-label">부서번호</label>
-			<input class="form-control" type="number" name="deptid">		
+			<label>부서번호</label>
+			<input type="number" name="deptid">		
 		</div>
 		<div>
-			<label class="form-label">입사일자</label>
-			<input class="form-control" type="date" name="hiredate">		
+			<label>입사일자</label>
+			<input type="date" name="hiredate">		
 		</div>
 		<div>
 			<button type="submit">👀등록👀</button>

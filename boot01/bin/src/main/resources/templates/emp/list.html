@@ -9,27 +9,14 @@
 <meta name="contextPath" th:value="${#httpServletRequest.getContextPath()}">
 <!--/* JSP 방식 :  ${pageContext.request.contextPath} */-->
 <title>Wish🍕🙄</title>
-<style type="text/css">
-    .table-container {
-        max-width: 800px; /* 원하는 최대 너비로 설정 */
-        margin: 0 auto; /* 가운데 정렬 */
-        padding: 20px; /* 테이블 주위에 여백 추가 */
-    }
-    .table {
-        width: 100%; /* 테이블이 컨테이너에 맞게 너비를 조절 */
-    }
-
-</style>
 
 </head>
 <body>
-	<h3>💗전체 사원 조회💗</h3>
-	<div class="table-container">
-	
-	<table class="table table-striped table-hover">
+	<h3>전체 사원 조회</h3>
+	<table>
 		<thead>
-			<tr class="table-warning">
-				<th >사원번호</th>
+			<tr>
+				<th>사원번호</th>
 				<th>이름</th>
 				<th>입사일자</th>
 				<th>부서번호</th>
@@ -42,7 +29,7 @@
 				<!--/* 정보값 2개일때 콤마사용 :@{/empInfo(empid=${emp.empid},empname=${emp.empname})} */-->
 				
 				<!--/* <tr th:onclick="|location.href='@{/empInfo(empid=${emp.empid})}'|"> */-->
-				<tr class="table">
+				<tr>
 					<td th:text="${emp.empid}"></td>
 					<td th:text="${emp.empname}"></td>
 					<!--/* <td th:text="${(emp.hiredate}"></td> */-->
@@ -54,9 +41,6 @@
 			</th:block>
 		</tbody>
 	</table>
-	</div>
-	
-	
 	<button th:onclick="|location.href='@{/empInsert}'|"> ✨등록 ✨</button>
 	<script type="text/javascript">
 		//표준속성이 아닌경우 attr로 불러오기 ex)meta태그
