@@ -12,6 +12,13 @@
 		FROM emp
 		ORDER BY empid
 	</select>
+		<!-- where태그 동적으로 사용하면 where 다음 and 오류안나고 소거됨
+		<where>
+			<if test="empname != null and !empname.equeals('')">
+			and empname = #{emp.empname}
+			</if>
+		</where> -->
+		
 	<!-- 단건조회 -->
 	<select id="selectEmpInfo" resultType="EmpVO" >
 		SELECT empid
@@ -68,14 +75,29 @@
 				    )
 	</insert>
 	<!-- 수정 파라미터타입2개이상넘어올때 생략하기-->
-	<update id="updateEmpInfo">
+<!-- 	<update id="updateEmpInfo">
 		UPDATE emp
-		SET empname = #{emp.empname}
-			,  sal = #{emp.sal}
+			 sal = #{emp.sal}
 			, mgr = #{emp.mgr}
 			, deptid = #{emp.deptid}
+			, empname = #{emp.empname}
+		WHERE empid = #{id} 
+	</update> -->
+	
+		<update id="updateEmpInfo">
+		UPDATE emp
+		<set>
+			 sal = #{emp.sal}
+			, mgr = #{emp.mgr}
+			, deptid = #{emp.deptid}
+			<if test="emp.empname != null and !emp.empname.equeals('')">
+			, empname = #{emp.empname}
+			</if>
+		</set>
 		WHERE empid = #{id} 
 	</update>
+	
+	
 	<!-- 삭제 :값1개 들어오면 매개변수이름 아무렇게나 상관ㄴ-->
 	<delete id="deleteEmpInfo" parameterType="int">
 		DELETE FROM emp
