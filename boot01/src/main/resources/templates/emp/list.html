@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 
-<meta name="contextPath" th:value="${#httpServletRequest.getContextPath()}">
 <!--/* JSP 방식 :  ${pageContext.request.contextPath} */-->
+<meta name="contextPath" th:value="${#httpServletRequest.getContextPath()}">
 <title>Wish🍕🙄</title>
 <style type="text/css">
     .table-container {
@@ -20,7 +20,6 @@
     }
 
 </style>
-
 </head>
 <body>
 	<h3>💗전체 사원 조회💗</h3>
@@ -40,7 +39,6 @@
 				<!--/* <tr th:onclick="location.href='/empInfo?empid=${emp.empid}'"> */-->
 				<!--/* @{/empInfo(empid=${emp.empid})} */-->
 				<!--/* 정보값 2개일때 콤마사용 :@{/empInfo(empid=${emp.empid},empname=${emp.empname})} */-->
-				
 				<!--/* <tr th:onclick="|location.href='@{/empInfo(empid=${emp.empid})}'|"> */-->
 				<tr class="table">
 					<td th:text="${emp.empid}"></td>
@@ -55,8 +53,6 @@
 		</tbody>
 	</table>
 	</div>
-	
-	
 	<button th:onclick="|location.href='@{/empInsert}'|"> ✨등록 ✨</button>
 	<script type="text/javascript">
 		//표준속성이 아닌경우 attr로 불러오기 ex)meta태그
