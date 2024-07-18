@@ -85,7 +85,7 @@
 	</update> -->
 	
 		<update id="updateEmpInfo">
-		UPDATE emp
+		update emp
 		<set>
 			 sal = #{emp.sal}
 			, mgr = #{emp.mgr}
@@ -94,14 +94,14 @@
 			, empname = #{emp.empname}
 			</if>
 		</set>
-		WHERE empid = #{id} 
+		where empid = #{id} 
 	</update>
 	
 	
 	<!-- 삭제 :값1개 들어오면 매개변수이름 아무렇게나 상관ㄴ-->
 	<delete id="deleteEmpInfo" parameterType="int">
-		DELETE FROM emp
-		WHERE empid = #{e}
+		delete from emp
+		where empid = #{e}
 	</delete>
 	
 </mapper>

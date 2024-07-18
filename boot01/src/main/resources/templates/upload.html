@@ -13,15 +13,19 @@
 	<script>
 		$('.uploadBtn').on('click', function(event){
 			let formData = new FormData();
+			// ajax를 위해만들어진 통신용 데이터 FormData : 콘솔찍기ㄴㄴ => 내부적으로 content-type설정되어있음
 			// 유사) jQuery.serializeArray();
 			// 1) <from/>태그 내부의 입력태그 정보를 한번에 받음
 			// 2) AJAX를 이용하여 'Content-type:multipart/form-data'를 보내는 경우
 			
+			//버튼이전에 input태그가져옴 type이 file일 경우 value 못가져오고 files로 가져와야함
 			let input = $(event.currentTarget).prev()[0];
+			//let "uploadFiles" = $(event.currentTarget).prev()[0];
 			let fileList = input.files;
 			
 			for(let file of fileList){
 				formData.append(input.name, file);
+				//formData.append("uploadFiles", file);
 			}
 			
 			console.log(formData.get("uploadFiles"));
@@ -36,11 +40,12 @@
 			})
 			.catch(err => console.log(err));
 			
-			$.ajax('uploadsAjax',{
+			$.ajax('uploadsAjax',{	//이미지 ajax로 많이 전송하고있음
 				type : 'post',				
 				data : formData,     // data 속성의 값(객체 타입)을
 				processData : false, // QueryString으로 변환하는 설정
 				contentType : false  // 기본 contentType을 사용하지 않겠다고 설정
+				//	jquery ajax로는 두개 설정 false 꼭해주셈
 			})
 			.done(result => {
 				for (let image of result){
