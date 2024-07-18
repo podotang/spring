@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Wish🍕🙄</title>
+</head>
+<body>
+	<h3>글 상세</h3>
+		<div>
+			<div>
+			<label>글제목</label>
+			<input type="text" th:value="${boardinfo.boardTitle}" readonly>		
+		</div>
+		<div>
+			<label>글내용</label>
+			<input type="text" th:value="${boardinfo.boardContent}" readonly>		
+		</div>
+		<div>
+			<label>작성자</label>
+			<input type="text" th:value="${boardinfo.boardWriter}" readonly>		
+		</div>
+		<div>
+			<label>작성일</label>
+			<input type="date" th:value="${#dates.format(boardinfo.regdate,'yyyy-MM-dd')}" readonly>		
+		</div>
+		</div>
+</body>
+</html>
