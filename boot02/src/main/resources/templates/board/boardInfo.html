@@ -1,28 +1,92 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/"
+			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+			layout:decorate="~{common/layouts/default_layout}"
+			layout:fragment="content"
+			>
 <head>
 <meta charset="UTF-8">
 <title>Wish🍕🙄</title>
+
+<style type="text/css">
+    .table-container {
+        max-width: 800px; /* 원하는 최대 너비로 설정 */
+        margin: 0 auto; /* 가운데 정렬 */
+        padding: 20px; /* 테이블 주위에 여백 추가 */
+    }
+    .table {
+        width: 100%; /* 테이블이 컨테이너에 맞게 너비를 조절 */
+    }
+
+</style>
+
 </head>
 <body>
+	<div  class="table-container">
 	<h3>글 상세</h3>
-		<div>
+		
+<!--/* 		<div>
 			<div>
-			<label>글제목</label>
-			<input type="text" th:value="${boardinfo.boardTitle}" readonly>		
-		</div>
+				<label>글제목</label>
+				<input type="text" th:value="${boardinfo.boardTitle}" readonly>		
+			</div>
+			<div>
+				<label>글내용</label>
+				<input type="text" th:value="${boardinfo.boardContent}" readonly>		
+			</div>
+			<div>
+				<label>작성자</label>
+				<input type="text" th:value="${boardinfo.boardWriter}" readonly>		
+			</div>
+			<div>
+				<label>작성일</label>
+				<input type="date" th:value="${#dates.format(boardinfo.regdate,'yyyy-MM-dd')}" readonly>		
+			</div>
+		</div> */-->
+		
+		<table >
+			<tr>
+				<th>번호</th>
+				<td>[[ ${boardinfo.boardNo}]]</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>[[ ${boardinfo.boardWriter}]]</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td style="height:100px; width:200px;">[[ ${boardinfo.boardContent}]]</td>
+			</tr>
+			<tr>
+				<th>첨부이미지</th>
+				<!-- /images/cat.jpg -->
+<!--/* 				<td><img style="height:200px; width:100px;" th:src="|${#httpServletRequest.getContextPath()}/images/${boardinfo.image}|"></td> */-->
+														<!-- 링크표현식과 변수표현식은 같이 사용하면에러남 => {fileName} 사용하는이유.,.. 고정값아니고 동적으로 받아오겠다 -->
+				<td><img th:src="@{/images/{fileName}(fileName=${boardinfo.image})}" style="height:200px; width:100px;"></td>
+			</tr>
+			<tr>
+				<th>작성일자</th>
+				<!-- 'yy/MM/dd' -->
+				<td>[[ ${#dates.format(boardinfo.regdate, 'yyyy/MM/dd')} ]]</td>
+			</tr>
+		</table>
 		<div>
-			<label>글내용</label>
-			<input type="text" th:value="${boardinfo.boardContent}" readonly>		
+			<button type="button" th:onclick="|location.href='@{/boardUpdate(boardNo=${boardinfo.boardNo})}'|">수정</button>
+			<button type="button" th:onclick="|location.href='@{/boardList}'|">목록</button>
+			<button type="button" th:onclick="|location.href='@{/boardDelete(boardNo=${boardinfo.boardNo})}'|">삭제</button>
 		</div>
-		<div>
-			<label>작성자</label>
-			<input type="text" th:value="${boardinfo.boardWriter}" readonly>		
-		</div>
-		<div>
-			<label>작성일</label>
-			<input type="date" th:value="${#dates.format(boardinfo.regdate,'yyyy-MM-dd')}" readonly>		
-		</div>
-		</div>
+			</div>
+		
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+

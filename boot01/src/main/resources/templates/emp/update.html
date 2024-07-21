@@ -67,6 +67,20 @@
 					console.log(result);
 				})
 				.fail(err=> console.log(err));
+
+
+				$ajax('empUpdate',{
+					type : 'post',
+					data : dataObj
+				})
+				.done(r=>{
+					console.log(r);
+				})
+				.fail(err=> console.log(err));
+
+
+
+
 		}
 		
 		function validationCheck(){

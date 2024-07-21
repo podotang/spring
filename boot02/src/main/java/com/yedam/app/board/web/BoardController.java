@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,7 +69,7 @@ public class BoardController {
 		BoardVO findvo = service.boardInfo(vo);
 		model.addAttribute("boardinfo",findvo);
 		
-		return "board/boardUpdate";
+		return "board/boardupdate";
 	}
 
 	// 수정 - 처리 : URI - boardUpdate / PARAMETER - BoardVO(JSON)
@@ -83,10 +82,10 @@ public class BoardController {
 	
 	// 삭제 - 처리 : URI - boardDelete / PARAMETER - Integer
 	//             RETURN - 전체조회 다시 호출
-	@DeleteMapping("boardDelete")
 //	public String boardDelete(Integer boardNo) { 
 	// 방법 2가지 @RequestParam붙으면 필수임!
 	// @RequestParam 없어도 상관없는 상황 붙으면 400에러남
+	@GetMapping("boardDelete")
 		public String boardDelete(@RequestParam Integer boardNo) {
 		service.deleteBoard(boardNo);
 		return "redirect:boardList";

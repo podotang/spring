@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface BoardService {
+	
 	public List<BoardVO> boardList();
 	
 	public BoardVO boardInfo(BoardVO boardvo);
