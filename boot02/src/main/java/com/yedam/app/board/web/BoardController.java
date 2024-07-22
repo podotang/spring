@@ -46,13 +46,11 @@ public class BoardController {
 		model.addAttribute("boardinfo",findvo);
 		return "board/boardInfo";
 	}
-
 	// 등록 - 페이지 : URI - boardInsert / RETURN - board/boardInsert
 	@GetMapping("boardInsert")
 	public String boardInsertForm() {	//일반적이 <form/> 활용
 		return "board/boardInsert";
 	}
-	
 	// 등록 - 처리 : URI - boardInsert / PARAMETER - BoardVO(QueryString)
 	//             RETURN - 단건조회 다시 호출
 	@PostMapping("boardInsert")
@@ -60,18 +58,19 @@ public class BoardController {
 		int bid = service.insertBoard(vo);
 		return  "redirect:boardInfo?boardNo=" + bid;
 	}
-	
 	// 수정 - 페이지 : URI - boardUpdate / PARAMETER - BoardVO(QueryString)
 	//               RETURN - board/boardUpdate
 	@GetMapping("boardUpdate")
 	public String boardUpdate(BoardVO vo, Model model) {
-
 		BoardVO findvo = service.boardInfo(vo);
 		model.addAttribute("boardinfo",findvo);
+<<<<<<< HEAD
 		
 		return "board/boardupdate";
+=======
+		return "board/boardUpdate";
+>>>>>>> refs/remotes/origin/main
 	}
-
 	// 수정 - 처리 : URI - boardUpdate / PARAMETER - BoardVO(JSON)
 	//             RETURN - 수정결과 데이터(Map)	//리턴이 데이터 = ajax 처리 == @ResponseBody사용!!!!
 	@PostMapping("boardUpdate")
@@ -79,7 +78,6 @@ public class BoardController {
 	public Map<String, Object> boardUpdate(@RequestBody BoardVO vo){
 		return service.updateBoard(vo);
 	}
-	
 	// 삭제 - 처리 : URI - boardDelete / PARAMETER - Integer
 	//             RETURN - 전체조회 다시 호출
 //	public String boardDelete(Integer boardNo) { 
