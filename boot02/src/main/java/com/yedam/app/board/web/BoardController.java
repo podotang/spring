@@ -64,13 +64,9 @@ public class BoardController {
 	public String boardUpdate(BoardVO vo, Model model) {
 		BoardVO findvo = service.boardInfo(vo);
 		model.addAttribute("boardinfo",findvo);
-<<<<<<< HEAD
-		
-		return "board/boardupdate";
-=======
 		return "board/boardUpdate";
->>>>>>> refs/remotes/origin/main
 	}
+
 	// 수정 - 처리 : URI - boardUpdate / PARAMETER - BoardVO(JSON)
 	//             RETURN - 수정결과 데이터(Map)	//리턴이 데이터 = ajax 처리 == @ResponseBody사용!!!!
 	@PostMapping("boardUpdate")
