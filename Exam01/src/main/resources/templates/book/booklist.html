@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/default_layout}"
+      layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>Wish🍕🙄</title>
+</head>
+<body>
+	<div>
+		<h3>도서 조회/수정</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>도서번호</th>
+					<th>도서명</th>
+					<th>표지</th>
+					<th>출판일자</th>
+					<th>금액</th>
+					<th>출판사</th>
+					<th>도서소개</th>
+				</tr>
+			</thead>
+			<tbody th:each="list : ${booklist}">
+				<tr>
+					<td>[[ ${list.bookNo} ]]</td>
+					<td>[[ ${list.bookName} ]]</td>
+					<td><img th:src="@{/images/{fileName}(fileName=${list.bookCoverimg})}" style="height:80px; width:50px;"></td>
+					<td>[[ ${#dates.format(list.bookDate, 'YYYY/MM/DD')} ]]</td>
+					<td>[[ ${#numbers.formatInteger(list.bookPrice, 3, 'COMMA')} ]]</td>
+					<td>[[ ${list.bookPublisher} ]]</td>
+					<td>[[ ${list.bookInfo} ]]</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,37 +1,131 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/"
+			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+			layout:decorate="~{common/layouts/default_layout}"
+			layout:fragment="content"
+			>
 <head>
 <meta charset="UTF-8">
 <title>Wish🍕🙄</title>
+
+<style type="text/css">
+    .table-container {
+        max-width: 1000px; /* 원하는 최대 너비로 설정 */
+        margin: 0 auto; /* 가운데 정렬 */
+        padding: 20px; /* 테이블 주위에 여백 추가 */
+    }
+    .table {
+        width: 100%; /* 테이블이 컨테이너에 맞게 너비를 조절 */
+    }
+
+</style>
+
 </head>
 <body>
 <h3>글 등록</h3>
-	<form name="boardInsert" th:action="@{/boardInsert}" method="post">
-		<div>
-			<div>
-			<label class="form-label">제목</label>
-			<input class="form-control" type="text" name="boardTitle" >		
-		</div>
-		<div>
-			<label class="form-label">내용</label>
-			<input class="form-control" type="text" name="boardContent" >		
-		</div>
-		<div>
-			<label class="form-label">작성자</label>
-			<input class="form-control" type="text" name="boardWriter" >		
-		</div>
-		<div>
-			<label class="form-label">작성일</label>
-			<input class="form-control" type="date" name="regdate" >		
-		</div>
-		<div>
-			<label class="form-label">이미지 첨부</label>
-			<input class="form-control" type="file" name="uploadFiles" multiple >		
-		</div>
-		<div>
-			<button type="submit">👀등록👀</button>
-		</div>
-		</div>
+	<form name="insertForm" th:action="@{/boardInsert}" method="post">
+		<table class="table-container">
+			<tr>
+				<th>제목</th>
+				<td><input type="text" name="boardTitle"></td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td><input type="text" name="boardWriter"></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td style="height:100px; width:200px;">
+				<textarea type="text"  name="boardContent"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>첨부이미지</th>
+				<td><input type="text" name="image"></td>
+			</tr>
+			<tr>
+				<th>작성일자</th>
+				<td><input type="text" name="regdate" placeholder="yyyy/MM/dd"></td>
+			</tr>
+		</table>
+			<button type="submit" >등록</button>
 	</form>
+	
+	<script type="text/javascript">
+	
+	
+				/* 방법1 */
+				
+				/* insertForm.addEventListener('submit',function(event){
+				event.preventDefault();
+
+				let boardno = document.querySelector('input[name="boardTitle"]');
+				if(boardno.value==''){
+					alert('제목은 필수입니다')
+					boardno.focus();
+					return;
+				}
+				
+				let boardwriter = document.querySelector('input[name="boardWriter"]');
+				if(boardwriter.value==''){
+					alert('작성자는 필수입니다.')
+					boardwriter.focus();
+					return;
+				}
+				
+				let regdate = document.querySelector('input[name="regdate"]');
+				if(regdate.value==''){
+					alert('날짜는 필수입니다.')
+					regdate.focus();
+					return;
+				}
+				
+				insertForm.submit();
+
+			}) */
+	
+			
+			/* 방법2 제이쿼리방식 */
+			$('form[name="insertForm"]').on('submit', boardInsertHandler);
+				
+				function boardInsertHandler(event){
+					event.preventDefault();
+					let title = $('input[name="boardTitle"]');
+					let writer = $('input[name="boardWriter"]');
+					let regdate = $('input[name="regdate"]');
+					
+					if(title.val()==''){
+						alert('제목은 필수입니다')
+						title.focus();
+						return;
+					}
+					
+					if(writer.val()==''){
+						alert('작성자는 필수입니다.')
+						writer.focus();
+						return;
+					}
+					
+					if(regdate.val()==''){
+						alert('날짜는 필수입니다.')
+						regdate.focus();
+						return;
+					}
+					
+					alert('글이 등록되었습니다.');
+					insertForm.submit();
+
+				}
+			
+			
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+

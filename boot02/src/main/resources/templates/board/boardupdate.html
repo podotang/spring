@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+			layout:decorate="~{common/layouts/default_layout}"
+			layout:fragment="content"
+			>
+<head>
+<meta charset="UTF-8">
+<title>Wish🍕🙄</title>
+</head>
+<body>
+	<h3>수정 페이지</h3>
+		<div>
+	<form name="updateForm" th:object="${boardinfo}">
+		<table class="table-container">
+			<tr>
+				<th>번호</th>
+				<td><input type="number"  th:field="*{boardNo}" readonly></td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td><input type="text"  th:field="*{boardTitle}"></td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td><input type="text" th:field="*{boardWriter}"></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td style="height:100px; width:200px;">
+				<textarea type="text" th:field="*{boardContent}"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>첨부이미지</th>
+				<td><input type="text"   th:field="*{image}"></td>
+			</tr>
+			<tr>
+				<th>작성일자</th>
+				<td><input type="text"  th:field="*{regdate}" readonly></td>
+			</tr>
+		</table>
+			<button type="button" id="updateBtn">수정</button>
+	</form>
+	</div>
+	
+		<script>
+		$('#updateBtn').on('click', boardUpdateAjax);
+		
+		function boardUpdateAjax(event){
+			//1) 보낼 데이터 확인
+			let info = getBoardInfo();
+			
+			//2) AJAX
+			$.ajax('boardUpdate',{
+				type:'post',
+				contentType : 'application/json',
+				data : JSON.stringify(info)
+			})
+			.done(data => {
+				if(data.result){
+					alert('정상적으로 수정되었습니다.');
+				}else{
+					alert('수정되지 않았습니다.\n데이터를 확인해주세요.');
+				}
+			})
+			.fail(err => console.log(err));			
+		};
+	
+		function getBoardInfo(){
+			let formData= $('form[name="updateForm"]').serializeArray();
+			console.log('1) serializeArray', formData);
+			
+			let objData = {};
+			$.each(formData, (idx, input) => {
+				console.log('2) input', idx, input);
+				objData[input.name] = input.value;
+			});
+			
+			console.log('3) objData', objData);
+			return objData;
+		};
+	</script>
+	
+	
+	
+	
+</body>
+</html>

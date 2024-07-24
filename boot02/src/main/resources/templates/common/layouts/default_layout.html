@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<!-- th:replace 는 해당태그가 교체되는것 / th:insert는 해당태그 하위에 생성됨 / layout은 해당위치에 넣겠다는뜻-->
+<!-- configs -->			<!-- 페이지 => viewResolver       :: fragment 이름 => th:fragments -->
+<th:block th:replace="common/configs/default_config :: defaultConfig"></th:block>
+</head>
+<body>
+<!-- fragments -->
+	<div class="container">
+		<header th:insert="common/fragments/default_header :: defaultHeader"></header>
+		<main layout:fragment="content"></main>
+		<footer th:insert="common/fragments/default_footer :: defaultFooter"></footer>
+	</div>
+</body>
+</html>
