@@ -76,7 +76,7 @@ public class BoardController {
 	}
 	// 삭제 - 처리 : URI - boardDelete / PARAMETER - Integer
 	//             RETURN - 전체조회 다시 호출
-	@DeleteMapping("boardDelete")
+	@GetMapping("boardDelete")
 //	public String boardDelete(Integer boardNo) { 
 	// 방법 2가지 @RequestParam붙으면 필수임!
 	// @RequestParam 없어도 상관없는 상황 붙으면 400에러남
