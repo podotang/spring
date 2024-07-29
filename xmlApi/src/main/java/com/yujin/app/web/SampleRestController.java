@@ -1,4 +1,4 @@
-package com.yujin.app;
+package com.yujin.app.web;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,7 +17,6 @@ import lombok.extern.log4j.Log4j2;
 
 @RestController
 @RequestMapping("/samplerest")
-@Log4j2
 @RequiredArgsConstructor
 public class SampleRestController {
 	
