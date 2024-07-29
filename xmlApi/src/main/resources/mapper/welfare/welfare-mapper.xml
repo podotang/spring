@@ -2,7 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.welfare.welfare-mapper">
 
+<insert id="" parameterType="com.yujin.app.service.DetailInfoVO">
+	INSERT INTO Jsondata(jid, servId)
+	VALUES(#{jid}, #{servId})
+</insert>
 
+
+<select id="basicInfo" resultType="com.yujin.app.service.BasicInfoVO">
+	select jid,servId 
+	from Jsondata
+</select>
+
+<insert id="" parameterType="com.yujin.app.service.DetailInfoVO">
+INSERT INTO welfare (servId, servNm, enfcBgngYmd, enfcEndYmd, bizChrDeptNm, ctpvNm, sggNm, servDgst, trgterIndvdlNmArray, intrsThemaNmArray, sprtCycNm, srvPvsnNm, aplyMtdNm, sprtTrgtCn, slctCritCn, alwServCn, aplyMtdCn, inqNum, lastModYmd) 
+VALUES (#{servId}, #{servNm}, #{enfcBgngYmd}, #{enfcEndYmd}, #{bizChrDeptNm}, #{ctpvNm}, #{sggNm}, #{servDgst}, #{trgterIndvdlNmArray}, #{intrsThemaNmArray}, #{sprtCycNm}, #{srvPvsnNm}, #{aplyMtdNm}, #{sprtTrgtCn}, #{slctCritCn}, #{alwServCn}, #{aplyMtdCn}, #{inqNum}, #{lastModYmd}
+</insert>
 
 
 
