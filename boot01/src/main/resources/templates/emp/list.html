@@ -1,76 +1,80 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/"
-			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-			layout:decorate="~{common/layouts/default_layout}"
-			layout:fragment="Content">
+<html xmlns:th="https://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}" layout:fragment="Content">
+
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 
-<!--/* JSP 방식 :  ${pageContext.request.contextPath} */-->
-<meta name="contextPath" th:value="${#httpServletRequest.getContextPath()}">
-<title>Wish🍕🙄</title>
-<style type="text/css">
-    .table-container {
-        max-width: 800px; /* 원하는 최대 너비로 설정 */
-        margin: 0 auto; /* 가운데 정렬 */
-        padding: 20px; /* 테이블 주위에 여백 추가 */
-    }
-    .table {
-        width: 100%; /* 테이블이 컨테이너에 맞게 너비를 조절 */
-    }
+	<!--/* JSP 방식 :  ${pageContext.request.contextPath} */-->
+	<meta name="contextPath" th:value="${#httpServletRequest.getContextPath()}">
+	<title>Wish🍕🙄</title>
+	<style type="text/css">
+		.table-container {
+			max-width: 800px;
+			/* 원하는 최대 너비로 설정 */
+			margin: 0 auto;
+			/* 가운데 정렬 */
+			padding: 20px;
+			/* 테이블 주위에 여백 추가 */
+		}
 
-</style>
+		.table {
+			width: 100%;
+			/* 테이블이 컨테이너에 맞게 너비를 조절 */
+		}
+	</style>
 </head>
+
 <body>
 	<h3>💗전체 사원 조회💗</h3>
 	<div class="table-container">
-	
-	<table class="table table-striped table-hover">
-		<thead>
-			<tr class="table-warning">
-				<th >사원번호</th>
-				<th>이름</th>
-				<th>입사일자</th>
-				<th>부서번호</th>
-			</tr>
-		</thead>
-		<tbody>
-			<th:block th:each="emp : ${empList}">
-				<!--/* <tr th:onclick="location.href='/empInfo?empid=${emp.empid}'"> */-->
-				<!--/* @{/empInfo(empid=${emp.empid})} */-->
-				<!--/* 정보값 2개일때 콤마사용 :@{/empInfo(empid=${emp.empid},empname=${emp.empname})} */-->
-				<!--/* <tr th:onclick="|location.href='@{/empInfo(empid=${emp.empid})}'|"> */-->
-				<tr class="table">
-					<td th:text="${emp.empid}"></td>
-					<td th:text="${emp.empname}"></td>
-					<!--/* <td th:text="${(emp.hiredate}"></td> */-->
-					<td>[[ ${#dates.format(emp.hiredate,'yyyy년 MM월 dd일 ')} ]]</td>
-					<!--/* <td th:text="${emp.deptid}"></td> */-->
-					<td>[[ ${emp.deptid} ]]</td>
-					<!-- <td><button>행에 삭제버튼이 열려있는경우 tr에 onclick속성 못씀으로 주로 이벤트핸들러사용해서처리</button></td> -->
+
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr class="table-warning">
+					<th>사원번호</th>
+					<th>이름</th>
+					<th>입사일자</th>
+					<th>부서번호</th>
 				</tr>
-			</th:block>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<th:block th:each="emp : ${empList}">
+					<!--/* <tr th:onclick="location.href='/empInfo?empid=${emp.empid}'"> */-->
+					<!--/* @{/empInfo(empid=${emp.empid})} */-->
+					<!--/* 정보값 2개일때 콤마사용 :@{/empInfo(empid=${emp.empid},empname=${emp.empname})} */-->
+					<!--/* <tr th:onclick="|location.href='@{/empInfo(empid=${emp.empid})}'|"> */-->
+					<tr class="table">
+						<td th:text="${emp.empid}"></td>
+						<td th:text="${emp.empname}"></td>
+						<!--/* <td th:text="${(emp.hiredate}"></td> */-->
+						<td>[[ ${#dates.format(emp.hiredate,'yyyy년 MM월 dd일 ')} ]]</td>
+						<!--/* <td th:text="${emp.deptid}"></td> */-->
+						<td>[[ ${emp.deptid} ]]</td>
+						<!-- <td><button>행에 삭제버튼이 열려있는경우 tr에 onclick속성 못씀으로 주로 이벤트핸들러사용해서처리</button></td> -->
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
 	</div>
 	<button th:onclick="|location.href='@{/empInsert}'|"> ✨등록 ✨</button>
 	<script type="text/javascript">
 		//표준속성이 아닌경우 attr로 불러오기 ex)meta태그
 		const context = $('meta[name="contextPath"]').attr('value');
-		$('tbody > tr').on('click',function(evet){
-			
-			if(event.target.tagName=='BUTTON') return;
-			
+		$('tbody > tr').on('click', function (evet) {
+
+			if (event.target.tagName == 'BUTTON') return;
+
 			let eId = $(event.currentTarget).children().first().text();
 			let url = context + '/empInfo?empid=' + eId;
-			console.log('url',url);
+			console.log('url', url);
 			location.href = url;
 		})
-		
-	</script>
-	
-	
-	
-</body>
-</html>
 
+	</script>
+
+
+
+</body>
+
+</html>

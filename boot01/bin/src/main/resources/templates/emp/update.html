@@ -1,124 +1,116 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/"
-			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-			layout:decorate="~{common/layouts/default_layout}"
-			layout:fragment="Content">
+<html xmlns:th="https://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}" layout:fragment="Content">
+
 <head>
-<meta charset="UTF-8">
-<title>Wish🍕🙄</title>
+	<meta charset="UTF-8">
+	<title>Wish🍕🙄</title>
 
 </head>
+
 <body>
 	<h3>✨✨사원 정보 수정✨✨ </h3>
-		<!-- 액션과메소드필요X -->
-		<form  name="updateForm" th:object="${empInfo}">
-			<div>
-				<label>사원번호</label>
-				<input type="number" th:field="*{empid}" readonly>		
-			</div>
-				<div>
-					<label>이름</label>
-					<input type="text"  th:field="*{empname}">		
-				</div>
-				<div>
-					<label>상사번호</label>
-					<input type="number" th:field="*{mgr}">		
-				</div>
-				<div>
-					<label>급여</label>
-					<input type="number" th:field="*{sal}">		
-				</div>
-				<div>
-					<label>부서번호</label>
-					<input type="number" th:field="*{deptid}">		
-				</div>
-				<div>
-					<label>입사일자</label>
-					<input type="date" th:field="*{hiredate}">		
-				</div>
-				<div>
-					<button type="button" id="updateBtn">🐈저장🐈</button>
-				</div>
+	<!-- 액션과메소드필요X -->
+	<form name="updateForm" th:object="${empInfo}">
+		<div>
+			<label>사원번호</label>
+			<input type="number" th:field="*{empid}" readonly>
+		</div>
+		<div>
+			<label>이름</label>
+			<input type="text" th:field="*{empname}">
+		</div>
+		<div>
+			<label>상사번호</label>
+			<input type="number" th:field="*{mgr}">
+		</div>
+		<div>
+			<label>급여</label>
+			<input type="number" th:field="*{sal}">
+		</div>
+		<div>
+			<label>부서번호</label>
+			<input type="number" th:field="*{deptid}">
+		</div>
+		<div>
+			<label>입사일자</label>
+			<input type="date" th:field="*{hiredate}">
+		</div>
+		<div>
+			<button type="button" id="updateBtn">🐈저장🐈</button>
+		</div>
 	</form>
-	
+
 	<script>
 		//$('form[name="updateForm" button]').on('click',updateAjax);
-		$('#updateBtn').on('click',updateAjax);
-		
-		function updateAjax(event){
+		$('#updateBtn').on('click', updateAjax);
+
+		function updateAjax(event) {
 			//1) 유효성 체크
-			if(validationCheck() == false) return;
+			if (validationCheck() == false) return;
 			//2) 서버에 보낼 데이터 정리
 			let dataObj = getEmpObj();
-			
+
 			console.log(dataObj);
 			//3) Ajax
-				//제일 첫값은 경로! 상대경로로 일단넣어줌 
-				 $.ajax('empUpdate',{
-					type : 'post',	// 통신할 때 method : get, post, put, delete
-					// => 아래 한줄 : 커맨드객체, @RequestParam
-					//data : dataObj		// 데이타는 기본 객체타입만 받는다, 자동으로 QueryString변환
-					
-					// => 아래 두줄 : @RequestBody
-					contentType : 'application/json',
-					data : JSON.stringify(dataObj)	//@RequestBody로 요청된것이라 json으로보냄
-				})
-				.done( result =>{
+			//제일 첫값은 경로! 상대경로로 일단넣어줌 
+			$.ajax('empUpdate', {
+				type: 'post',	// 통신할 때 method : get, post, put, delete
+				// => 아래 한줄 : 커맨드객체, @RequestParam
+				//data : dataObj		// 데이타는 기본 객체타입만 받는다, 자동으로 QueryString변환
+
+				// => 아래 두줄 : @RequestBody
+				contentType: 'application/json',
+				data: JSON.stringify(dataObj)	//@RequestBody로 요청된것이라 json으로보냄
+			})
+				.done(result => {
 					console.log(result);
 				})
-				.fail(err=> console.log(err));
+				.fail(err => console.log(err));
 		}
-		
-		function validationCheck(){
-			
+
+		function validationCheck() {
+
 			let ename = $('[name="empname"]');
-			if(ename.val()==''){
+			if (ename.val() == '') {
 				alert('이름은 필수 값입니다.');
 				ename.focus();
 				return false;
-			}	
-			
+			}
+
 			let sal = $('[name="sal"]');
-			if(sal.val() < 1000 || sal.val()>99999){
+			if (sal.val() < 1000 || sal.val() > 99999) {
 				alert('급여의 범위는 1000~99999입니다');
 				sal.focus();
 				return false;
 			}
 			return true;
 		}
-		
-		function getEmpObj(){
+
+		function getEmpObj() {
 			let formAry = $('form[name="updateForm"]').serializeArray();
 			// serializeArray => [{ name : 'empid', value : '205'},{ name : 'empname', value : '사쿠'}, ... ]
 			// 폼은 배열형태로 넘어갈수 없어서 객체로 만들어줘야함 
 			// javascript에선 FormData
-			
+
 			let formObj = {};
-			$.each(formAry, function(idx, input){
+			$.each(formAry, function (idx, input) {
 				// input = { name : 'empid', value : '205'} 형태를
 				// => { empid : 205 } 형태로 바꿔줘야함
 				formObj[input.name] = input.value;
 				// formObj['empid'] = '205';
 				// formObj.empid == formObj['empid']  
 			});
-			
+
 			return formObj;
 			console.log(formAry);
 			//=> { empid : 205 } 로 나옴
-			
+
 		}
-		
-		
+
+
 	</script>
-	
+
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-

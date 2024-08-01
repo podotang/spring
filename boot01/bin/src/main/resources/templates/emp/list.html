@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/"
-			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-			layout:decorate="~{common/layouts/default_layout}"
-			layout:fragment="Content">
-<head>
-<meta charset="UTF-8">
+<html xmlns:th="https://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}" layout:fragment="Content">
 
-<meta name="contextPath" th:value="${#httpServletRequest.getContextPath()}">
-<!--/* JSP 방식 :  ${pageContext.request.contextPath} */-->
-<title>Wish🍕🙄</title>
+<head>
+	<meta charset="UTF-8">
+
+	<meta name="contextPath" th:value="${#httpServletRequest.getContextPath()}">
+	<!--/* JSP 방식 :  ${pageContext.request.contextPath} */-->
+	<title>Wish🍕🙄</title>
 
 </head>
+
 <body>
 	<h3>전체 사원 조회</h3>
 	<table>
@@ -27,7 +27,7 @@
 				<!--/* <tr th:onclick="location.href='/empInfo?empid=${emp.empid}'"> */-->
 				<!--/* @{/empInfo(empid=${emp.empid})} */-->
 				<!--/* 정보값 2개일때 콤마사용 :@{/empInfo(empid=${emp.empid},empname=${emp.empname})} */-->
-				
+
 				<!--/* <tr th:onclick="|location.href='@{/empInfo(empid=${emp.empid})}'|"> */-->
 				<tr>
 					<td th:text="${emp.empid}"></td>
@@ -45,20 +45,20 @@
 	<script type="text/javascript">
 		//표준속성이 아닌경우 attr로 불러오기 ex)meta태그
 		const context = $('meta[name="contextPath"]').attr('value');
-		$('tbody > tr').on('click',function(evet){
-			
-			if(event.target.tagName=='BUTTON') return;
-			
+		$('tbody > tr').on('click', function (evet) {
+
+			if (event.target.tagName == 'BUTTON') return;
+
 			let eId = $(event.currentTarget).children().first().text();
 			let url = context + '/empInfo?empid=' + eId;
-			console.log('url',url);
+			console.log('url', url);
 			location.href = url;
 		})
-		
-	</script>
-	
-	
-	
-</body>
-</html>
 
+	</script>
+
+
+
+</body>
+
+</html>

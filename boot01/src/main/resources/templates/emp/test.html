@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org/">
+
 <head>
-<meta charset="UTF-8">
-<title>test🍕🧀😀🍕🧀😀</title>
+	<meta charset="UTF-8">
+	<title>test🍕🧀😀🍕🧀😀</title>
 </head>
+
 <body>
 	<h3>Thymeleaf Test</h3>
 	<th:block th:each="num : ${#numbers.sequence(1,5)}">
-		<p th:text="${num}"/>
+		<p th:text="${num}" />
 	</th:block>
 	<hr>
 	<!--/* 기본방식 => th:속성 ="${}" or th:src="@{}" */-->
@@ -21,7 +23,7 @@
 		let msg = `사원이름 + ${eid} `
 		console.log(msg);
 	</script>
-	
-</body>
-</html>
 
+</body>
+
+</html>

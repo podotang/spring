@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/"
-			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-			layout:decorate="~{common/layouts/default_layout}"
-			layout:fragment="Content">
+<html xmlns:th="https://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}" layout:fragment="Content">
+
 <head>
-<meta charset="UTF-8">
-<title>Wish🍕🙄</title>
+	<meta charset="UTF-8">
+	<title>Wish🍕🙄</title>
 </head>
+
 <body>
 	<h3>Info: 사원 정보 조회</h3>
 	<div>
 		<div>
 			<label>사원번호</label>
-			<input type="number" th:value="${empInfo.empid}" readonly>		
+			<input type="number" th:value="${empInfo.empid}" readonly>
 		</div>
 		<div>
 			<label>이름</label>
-			<input type="text" th:value="${empInfo.empname}"  readonly>		
+			<input type="text" th:value="${empInfo.empname}" readonly>
 		</div>
 		<div>
 			<label>상사번호</label>
-			<input type="number" th:value="${empInfo.mgr}"  readonly>		
+			<input type="number" th:value="${empInfo.mgr}" readonly>
 		</div>
 		<div>
 			<label>급여</label>
-			<input type="number" th:value="${#numbers.formatInteger(empInfo.sal,5)}"  readonly>		
+			<input type="number" th:value="${#numbers.formatInteger(empInfo.sal,5)}" readonly>
 		</div>
 		<div>
 			<label>부서번호</label>
-			<input type="number" th:value="${empInfo.deptid}"  readonly>		
+			<input type="number" th:value="${empInfo.deptid}" readonly>
 		</div>
 		<div>
 			<label>입사일자</label>
-			<input type="date" th:value="${#dates.format(empInfo.hiredate,'yyyy-MM-dd')}"  readonly>		
+			<input type="date" th:value="${#dates.format(empInfo.hiredate,'yyyy-MM-dd')}" readonly>
 		</div>
 		<div>
 			<button type="button" th:onclick="|location.href='@{/empUpdate(empid=${empInfo.empid})}'|">💟수정💟</button>
@@ -42,10 +42,5 @@
 	</div>
 
 </body>
+
 </html>
-
-
-
-
-
-

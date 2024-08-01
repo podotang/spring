@@ -44,8 +44,8 @@
 	<update id="updateDepInfo">
 		UPDATE DEPARTMENTS
 		SET DEPARTMENT_NAME = #{dep.department_name}
-				,MANAGER_ID = #{dep.manager_id}
-				,LOCATION_ID = #{dep.location_id}
+		,MANAGER_ID = #{dep.manager_id}
+		,LOCATION_ID = #{dep.location_id}
 		WHERE DEPARTMENT_ID = #{did}
 	</update>
 
@@ -53,11 +53,6 @@
 		DELETE FROM DEPARTMENTS
 		WHERE DEPARTMENT_ID = #{nctwish}
 	</delete>
-
-
-
-
-
 
 
 </mapper>

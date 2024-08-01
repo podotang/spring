@@ -16,7 +16,6 @@ public class DetailInfoVO {
     private String intrsThemaNmArray;
     private String sprtCycNm;
     private String srvPvsnNm;
-    private String aplyMtdNm;
     private String sprtTrgtCn;
     private String slctCritCn;
     private String alwServCn;
