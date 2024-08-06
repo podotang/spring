@@ -37,8 +37,7 @@
 			<tbody>
                 <th:block th:each="list, sts : ${boardlist}">
                 <!-- sts : 상태값에 count, index 두개 사용가능 first,second등도가능=> 주로 1부터시작하는 count사용함 -->
-                    <tr class="table" th:name="${sts.count}" 
-                    						th:onclick="|location.href='@{/boardInfo(boardNo=${list.boardNo})}'|">
+                    <tr class="table" th:name="${sts.count}" th:onclick="|location.href='@{/boardInfo(boardNo=${list.boardNo})}'|">
 	                    <td th:text=${list.boardNo}></td>
 	                    <td th:text=${list.boardTitle}></td>
 	                    <td th:text=${list.boardWriter}></td>
