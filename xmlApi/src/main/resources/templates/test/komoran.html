@@ -1,15 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>Wish🍕🙄</title>
-<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
+    <meta charset="UTF-8">
+    <title>음성 인식 및 형태소 분석</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
 </head>
 <body>
-	
-		<h1>Komoran</h1>
-		
+
+<div id="recognizedText"></div>
+<div id="analyzedText"></div>
+
+<script type="text/javascript">
+    if (annyang) {
+        // URL 매핑 설정
+        const urlMapping = {
+            '한국어': 'https://ko.wikipedia.org/wiki/한국어',
+            '기술': 'https://ko.wikipedia.org/wiki/기술',
+            '문제': 'https://ko.wikipedia.org/wiki/문제'
+            // 추가로 필요한 단어와 URL 매핑 추가
+        };
+
+        // 음성 인식된 텍스트를 서버로 전송하여 분석 요청
+        annyang.addCallback('result', function(phrases) {
+            document.getElementById('recognizedText').innerHTML = "Recognized: " + phrases[0];
+            
+            // 서버로 POST 요청 보내기
+            fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: phrases[0] }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const analyzedTextDiv = document.getElementById('analyzedText');
+                analyzedTextDiv.innerHTML = "Analyzed: " + data.join(', ');
+                
+                // 단어가 URL 매핑에 있는지 확인하고 페이지 이동
+                data.forEach(word => {
+                    if (urlMapping[word]) {
+                        window.location.href = urlMapping[word];
+                    }
+                });
+            });
+        });
+
+        annyang.setLanguage('ko');
+        SpeechKITT.annyang();
+        SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/themes/flat.css');
+        SpeechKITT.vroom();
+    }
+</script>
 
 </body>
 </html>

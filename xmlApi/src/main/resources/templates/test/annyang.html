@@ -3,20 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Wish🍕🙄</title>
-<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
 </head>
 <body>
 
-		<div id= "state">
-	</div>
-	
-	<script type="text/javascript">
+	<div id="state"></div>
+	<div id="analyzedText"></div>
+	<div id="recognizedText"></div>
+
+<!-- 	<script type="text/javascript">
 		
 		if(annyang){
-			
 			let commands = {
-					/* '전진':function(){
+					'전진':function(){
 						document.getElementById('state').innerHTML = '앞으로이동';
 						console.log('앞으로');
 					},
@@ -31,37 +33,26 @@
 					'정지':function(){
 						document.getElementById('state').innerHTML = '멈춰라!';
 						console.log('정지==============');
-					} */
-					'전진':function(){
-						document.getElementById('state').innerHTML = phrases;
-						console.log('앞으로');
-					},
-					'후진':function(){
-						document.getElementById('state').innerHTML = phrases;
-						console.log('뒤로');
-					},
-					'직진':function(){
-						document.getElementById('state').innerHTML = phrases;
-						console.log('똑바로');
-					},
-					'정지':function(){
-						document.getElementById('state').innerHTML = phrases;
-						console.log('정지==============');
-					}
-					
+					} 
 			} 
 			
 			  // Add our commands to annyang
 			  annyang.addCommands(commands);
 			  
-			  annyang.debug();  //입력된 음성을 크롬 console에 출력함
+			  //크롬 console에 출력
+			  annyang.debug();  
 			  
-			  // 음성 인식 결과를 콘솔에 출력
+			  //화면출력
 			  annyang.addCallback('result', function(phrases) {
-			    console.log("Recognized phrases: ", phrases);
-			  });
+					document.getElementById('recognizedText').innerHTML = "Recognized: " + phrases[0];
+				});
 			  
-			  annyang.setLanguage('ko');    //언어를 한글로
+			  //콘솔 출력
+/* 			  annyang.addCallback('result', function(phrases) {
+			    console.log("Recognized phrases: ", phrases);
+			  }); */
+			  
+			  annyang.setLanguage('ko'); 
 
 			  // Tell KITT to use annyang
 			  SpeechKITT.annyang();
@@ -71,22 +62,37 @@
 
 			  // Render KITT's interface
 			  SpeechKITT.vroom();
-			
 		}
 	</script>
+ -->
 
-		<script type="text/javascript">
-		fetch('/komoran', {
-			  method: 'POST',
-			  headers: {
-			    'Content-Type': 'application/json',
-			  },
-			  body: JSON.stringify({ text: phrases[0] }),
-			})
-			.then(response => response.json())
-			.then(data => console.log('Analyzed Data:', data));
-		
-		</script>
-		
+	<script type="text/javascript">
+
+	if (annyang) {
+        // 음성 인식된 텍스트를 서버로 전송하여 분석 요청
+        annyang.addCallback('result', function(phrases) {
+            document.getElementById('recognizedText').innerHTML = "Recognized: " + phrases[0];
+            
+            // 서버로 POST 요청 보내기
+            fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: phrases[0] }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('analyzedText').innerHTML = "Analyzed: " + data.join(', ');
+            });
+        });
+
+        annyang.setLanguage('ko');
+        SpeechKITT.annyang();
+        SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/themes/flat.css');
+        SpeechKITT.vroom();
+    }
+	</script>
+
 </body>
 </html>
