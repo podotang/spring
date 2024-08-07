@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Wish🍕🙄</title>
+<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
+</head>
+<body>
+
+		<div id= "state">
+	</div>
+	
+	<script type="text/javascript">
+		
+		if(annyang){
+			
+			let commands = {
+					/* '전진':function(){
+						document.getElementById('state').innerHTML = '앞으로이동';
+						console.log('앞으로');
+					},
+					'후진':function(){
+						document.getElementById('state').innerHTML = '뒤로이동';
+						console.log('뒤로');
+					},
+					'직진':function(){
+						document.getElementById('state').innerHTML = '똑바로로이동';
+						console.log('똑바로');
+					},
+					'정지':function(){
+						document.getElementById('state').innerHTML = '멈춰라!';
+						console.log('정지==============');
+					} */
+					'전진':function(){
+						document.getElementById('state').innerHTML = phrases;
+						console.log('앞으로');
+					},
+					'후진':function(){
+						document.getElementById('state').innerHTML = phrases;
+						console.log('뒤로');
+					},
+					'직진':function(){
+						document.getElementById('state').innerHTML = phrases;
+						console.log('똑바로');
+					},
+					'정지':function(){
+						document.getElementById('state').innerHTML = phrases;
+						console.log('정지==============');
+					}
+					
+			} 
+			
+			  // Add our commands to annyang
+			  annyang.addCommands(commands);
+			  
+			  annyang.debug();  //입력된 음성을 크롬 console에 출력함
+			  
+			  // 음성 인식 결과를 콘솔에 출력
+			  annyang.addCallback('result', function(phrases) {
+			    console.log("Recognized phrases: ", phrases);
+			  });
+			  
+			  annyang.setLanguage('ko');    //언어를 한글로
+
+			  // Tell KITT to use annyang
+			  SpeechKITT.annyang();
+
+			  // Define a stylesheet for KITT to use
+			  SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/themes/flat.css');
+
+			  // Render KITT's interface
+			  SpeechKITT.vroom();
+			
+		}
+	</script>
+
+		<script type="text/javascript">
+		fetch('/komoran', {
+			  method: 'POST',
+			  headers: {
+			    'Content-Type': 'application/json',
+			  },
+			  body: JSON.stringify({ text: phrases[0] }),
+			})
+			.then(response => response.json())
+			.then(data => console.log('Analyzed Data:', data));
+		
+		</script>
+		
+</body>
+</html>
